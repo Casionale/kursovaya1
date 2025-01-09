@@ -82,7 +82,7 @@ class Square_interactive_objects:
     def draw(self, screen, camera):
         # Отрисовка с учётом камеры
         screen_x = self.x - camera.x_offset
-        screen_y = self.y - camera.y_offseta
+        screen_y = self.y - camera.y_offset
         pygame.draw.rect(screen, (self.color), (screen_x, screen_y, self.size, self.size))
 
     def collides_with(self, player):
