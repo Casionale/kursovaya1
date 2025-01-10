@@ -24,5 +24,18 @@ FPS = 60
 pygame.mixer.init()
 COLLECT_SOUND = pygame.mixer.Sound("sounds/collect.wav")
 SHRINK_SOUND = pygame.mixer.Sound("sounds/shrink.wav")
+BONUS_SOUND = pygame.mixer.Sound("sounds/bonus.mp3")
+LEVEL_UP_SOUND = pygame.mixer.Sound("sounds/LevelUp.mp3")
+VICTORY_SOUND = pygame.mixer.Sound("sounds/Victory.mp3")
+GAME_OVER_SOUND = pygame.mixer.Sound("sounds/LevelUp.mp3")
+ENDING_SOUND = pygame.mixer.Sound("sounds/ENDING.mp3")
+GAME_SOUND = pygame.mixer.Sound("sounds/Blade_DS_Campaign.ogg")
+MENU_SOUND = pygame.mixer.Sound("sounds/MENU.mp3")
+
+#ТЕКУЩИЙ ЭКРАН
+CURRENT_SCREEN = ""
+
+#ВРЕМЯ ИГРЫ
+GAME_TIME = 0
 
 # Условия победы

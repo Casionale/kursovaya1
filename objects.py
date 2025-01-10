@@ -61,6 +61,10 @@ class MovingObject(GameObject):
         self.speed = speed
         self.direction = direction  # (dx, dy), направление движения
 
+    def draw(self, screen, camera):
+        self.update(self.speed/10)
+        super().draw(screen, camera)
+
     def update(self, dt):
         # Обновляем позицию объекта
         self.x += self.speed * self.direction[0] * dt

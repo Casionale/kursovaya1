@@ -47,6 +47,7 @@ class GameMap:
             if bonus.collides_with(player):
                 print('Коллизия с бонусом')
                 bonus.apply_effect(player)
+                BONUS_SOUND.play()
                 self.bonuses.remove(bonus)
 
     def draw(self, screen, camera):
@@ -63,7 +64,7 @@ class GameMap:
             x = random.randint(0, MAP_WIDTH)
             y = random.randint(0, MAP_HEIGHT)
             if random.random() < 0.2 * self.difficulty:  # Вероятность появления движущихся объектов
-                speed = random.randint(10, 30)
+                speed = random.randint(1, 3)
                 direction = (random.choice([-1, 1]), random.choice([-1, 1]))
                 self.objects.append(MovingObject(x, y, size, speed, direction))
             else:
