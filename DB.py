@@ -33,7 +33,7 @@ class Database:
         """Возвращает лучшие результаты в виде списка словарей."""
         records = (
             self.session.query(Record)
-            .order_by(Record.time.asc())  # Сортировка по времени (чем меньше, тем лучше)
+            .order_by(Record.time.asc())  # Сортировка по времени
             .limit(limit)
             .all()
         )

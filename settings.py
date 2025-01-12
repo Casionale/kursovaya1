@@ -1,8 +1,8 @@
 # Размеры окна
 import pygame
 
-WINDOW_WIDTH = 800
-WINDOW_HEIGHT = 600
+WINDOW_WIDTH = 1280
+WINDOW_HEIGHT = 720
 
 # Размеры карты
 MAP_WIDTH = 2000
@@ -31,11 +31,10 @@ GAME_OVER_SOUND = pygame.mixer.Sound("sounds/LevelUp.mp3")
 ENDING_SOUND = pygame.mixer.Sound("sounds/ENDING.mp3")
 GAME_SOUND = pygame.mixer.Sound("sounds/Blade_DS_Campaign.ogg")
 MENU_SOUND = pygame.mixer.Sound("sounds/MENU.mp3")
+CREDITS_SOUND = pygame.mixer.Sound("sounds/Dark-Knight-chosic.mp3")
 
 #ТЕКУЩИЙ ЭКРАН
 CURRENT_SCREEN = ""
 
 #ВРЕМЯ ИГРЫ
 GAME_TIME = 0
-
-# Условия победы

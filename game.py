@@ -10,7 +10,7 @@ from settings import *
 class Game:
     screen = None
     current_level = None
-    max_level = 1
+    max_level = 5
     running = False
     game_timer = 0
     game_map = None
@@ -93,6 +93,12 @@ class Game:
                 settings.CURRENT_SCREEN = "menu"
                 self.running = False
 
+            # После всей основной отрисовки затемнение от уровня:
+            dark_overlay = pygame.Surface(self.screen.get_size())
+            dark_overlay.set_alpha(0 + self.current_level * 10)
+            dark_overlay.fill((0, 0, 0))
+            self.screen.blit(dark_overlay, (0, 0))
+
             pygame.display.flip()
             self.clock.tick(FPS)
 
@@ -114,9 +120,6 @@ class Game:
 
     def load_next_level(self):
         self.current_level += 1
-            #pygame.quit()  # ЗАВЕРШЕНИЕ ИГРЫ!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-            #sys.exit()
-
         print(f"Переход на уровень {self.current_level}")
         self.game_map = GameMap(num_objects=20 + self.current_level * 5, difficulty=self.current_level)
         self.player = Player(x=MAP_WIDTH // 2, y=MAP_HEIGHT // 2, radius=20)  # Обновляем игрока

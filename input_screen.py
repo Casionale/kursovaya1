@@ -1,5 +1,7 @@
 import pygame
 
+import settings
+
 # Цвета
 WHITE = (255, 255, 255)
 BLACK = (0, 0, 0)
@@ -36,6 +38,7 @@ class InputScreen:
         if event.type == pygame.KEYDOWN and self.active:
             if event.key == pygame.K_RETURN:
                 # Когда нажали Enter, возвращаем текст
+                settings.CURRENT_SCREEN = "menu"
                 return self.text.strip()
             elif event.key == pygame.K_BACKSPACE:
                 self.text = self.text[:-1]

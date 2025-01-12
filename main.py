@@ -2,20 +2,24 @@ import pygame
 
 import DB
 import settings
+from credits_screen import CreditsScreen
 from game import Game
 from input_screen import InputScreen
 
 from menu import Menu
+from records_screen import RecordsScreen
 
 pygame.init()
 
 # Настройка окна
 screen = pygame.display.set_mode((settings.WINDOW_WIDTH, settings.WINDOW_HEIGHT))
-pygame.display.set_caption("Katamari 2D")
+pygame.display.set_caption("Katamacy is like Katamari Damacy but 2D")
 
 menu = Menu(screen)
 game = Game(screen)
 input_screen = InputScreen(screen)
+records_screen = RecordsScreen(screen)
+credits_screen = CreditsScreen(screen)
 
 running = True
 print('Cur screen set MENU')
@@ -34,9 +38,14 @@ while running:
             if player_name is not None:
                 s = DB.Database()
                 s.add_record(player_name, settings.GAME_TIME)
-                settings.CURRENT_SCREEN == "menu"
+                settings.CURRENT_SCREEN == "records"
             pass
 
+        if settings.CURRENT_SCREEN == "records":
+            records_screen.handle_event(event)
+
+        if settings.CURRENT_SCREEN == "credit":
+            credits_screen.handle_event(event)
 
     if settings.CURRENT_SCREEN == "menu":
         menu.draw()
@@ -44,10 +53,13 @@ while running:
         game.to_game()
     if settings.CURRENT_SCREEN == "input":
         input_screen.draw()
+    if settings.CURRENT_SCREEN == "records":
+        records_screen.draw()
+    if settings.CURRENT_SCREEN == "credit":
+        credits_screen.update()
+        credits_screen.draw()
 
     pygame.display.flip()
-
-#to_game()
 
 pygame.quit()
 

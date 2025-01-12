@@ -10,6 +10,7 @@ WHITE = (255, 255, 255)
 BLACK = (0, 0, 0)
 GRAY = (200, 200, 200)
 HOVER_COLOR = (150, 150, 150)
+TITLE = (179, 36, 36)
 
 # Настройки кнопок
 BUTTON_WIDTH = 350
@@ -27,14 +28,15 @@ class Menu:
             {"label": "Титры", "action": self.show_credits},
             {"label": "Выход", "action": self.exit_game},
         ]
+        self.bg = pygame.image.load("imgs/bg.webp")
         MENU_SOUND.play(loops=10)
 
     def draw(self):
         self.screen.fill(BLACK)
-
+        self.screen.blit(self.bg, self.bg.get_rect())
         # Рисуем заголовок
         title_font = pygame.font.Font(None, 80)
-        title = title_font.render("Katamari 2D", True, WHITE)
+        title = title_font.render("Katamacy 2D", True, TITLE)
         title_rect = title.get_rect(center=(self.screen.get_width() // 2, 100))
         self.screen.blit(title, title_rect)
 
@@ -76,10 +78,11 @@ class Menu:
 
     def show_highscores(self):
         print("Открыть таблицу рекордов")  # Здесь будет логика отображения рекордов
-        MENU_SOUND.fadeout(2)
+        settings.CURRENT_SCREEN = "records"
 
     def show_credits(self):
         print("Открыть титры")  # Здесь будет отображение титров
+        settings.CURRENT_SCREEN = "credit"
         MENU_SOUND.fadeout(2)
 
     def exit_game(self):
