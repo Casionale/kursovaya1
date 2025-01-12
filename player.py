@@ -1,4 +1,6 @@
 import pygame
+
+import settings
 from settings import *
 
 class Player:
@@ -27,6 +29,12 @@ class Player:
         # Обновляем позицию
         self.x += move_x
         self.y += move_y
+
+
+        if keys[pygame.K_ESCAPE]:
+            settings.CURRENT_SCREEN = "menu"
+            settings.GAME_SOUND.fadeout(1)
+            settings.MENU_SOUND.play()
 
     def grow(self, amount):
         self.radius += amount

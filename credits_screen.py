@@ -21,13 +21,17 @@ class CreditsScreen:
             "Багров Кирилл Юрьевич",
             "",
             "",
+            "Главный и не повторимый тестировщик:",
+            "Коротаев Кирилл Андреевич",
+            "",
+            "",
             "Коллеги по работе, принимавшие участие в",
             "тестировании ранних версий:",
             "Попов Дмитрий Андреевич",
             "Скворцов Александр Викторович",
             "",
             "",
-            "Дизайн:",
+            "Геймдизайн:",
             "Багров Кирилл Юрьевич",
             "",
             "Фоновое изображение:",
@@ -39,6 +43,16 @@ class CreditsScreen:
             "FreeSoundEffects.net",
             "chosic.com",
             "",
+            "",
+            "Отдельная благодарность",
+            "Друзьям и коллегам, которые поддерживали",
+            "меня весь этот долгий и упорный путь",
+            "в прошлые и будущие годы:",
+            "Кузнецов Михаил",
+            "Ширшов Илья",
+            "Дружин Кирилл",
+            "Никита Толкачев",
+            "и другие...",
             "",
             "",
             "Специально для",
@@ -72,6 +86,7 @@ class CreditsScreen:
 
         if self.y_positions[-1] < 0:
             settings.CURRENT_SCREEN = "menu"
+            self.y_positions = [self.screen.get_height() + i * 50 for i in range(len(self.credits))]
             settings.CREDITS_SOUND.fadeout(1)
             settings.MENU_SOUND.play()
 
@@ -79,6 +94,7 @@ class CreditsScreen:
         if event.type == pygame.KEYDOWN:
             if event.key == pygame.K_RETURN:
                 settings.CURRENT_SCREEN = "menu"
+                self.y_positions = [self.screen.get_height() + i * 50 for i in range(len(self.credits))]
                 settings.CREDITS_SOUND.fadeout(1)
                 settings.MENU_SOUND.play()
 

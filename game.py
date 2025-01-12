@@ -10,7 +10,7 @@ from settings import *
 class Game:
     screen = None
     current_level = None
-    max_level = 1
+    max_level = 5
     running = False
     game_timer = 0
     game_map = None
@@ -39,6 +39,8 @@ class Game:
         self.game_map = GameMap(num_objects=30 + self.current_level * 5, difficulty=self.current_level)
 
         while running:
+            if settings.CURRENT_SCREEN == "menu":
+                return
             dt = self.clock.tick(60) / 1000  # Дельта времени в секундах для таймера
             self.game_timer += dt
 
