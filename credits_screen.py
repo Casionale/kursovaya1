@@ -37,7 +37,15 @@ class CreditsScreen:
             "Музыка:",
             "Soundsnap",
             "FreeSoundEffects.net",
-            "chosic.com"
+            "chosic.com",
+            "",
+            "",
+            "",
+            "Специально для",
+            "Курсовой работы",
+            "САФУ, 2025",
+            "",
+            "СПАСИБО ЗА ИГРУ!",
         ]
 
         self.y_positions = [self.screen.get_height() + i * 50 for i in range(len(self.credits))]
