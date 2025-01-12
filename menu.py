@@ -28,7 +28,7 @@ class Menu:
             {"label": "Титры", "action": self.show_credits},
             {"label": "Выход", "action": self.exit_game},
         ]
-        self.bg = pygame.image.load("imgs/bg.webp")
+        self.bg = pygame.image.load(settings.resource_path("imgs/bg.webp"))
         MENU_SOUND.play(loops=10)
 
     def draw(self):

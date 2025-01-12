@@ -17,7 +17,7 @@ class RecordsScreen:
         self.input_box = pygame.Rect((self.screen.get_width() // 2 - 150, 250), (300, 50))
         self.db = DB.Database()
         self.records = self.db.get_top_records()
-        self.bg = pygame.image.load("imgs/bg.webp")
+        self.bg = pygame.image.load(settings.resource_path("imgs/bg.webp"))
 
 
     def draw(self):

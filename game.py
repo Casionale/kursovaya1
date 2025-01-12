@@ -92,6 +92,7 @@ class Game:
                 MENU_SOUND.play(loops=10)
                 settings.CURRENT_SCREEN = "menu"
                 self.running = False
+                return
 
             # После всей основной отрисовки затемнение от уровня:
             dark_overlay = pygame.Surface(self.screen.get_size())

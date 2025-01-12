@@ -1,3 +1,6 @@
+import os
+import sys
+
 import pygame
 
 import DB
@@ -62,6 +65,5 @@ while running:
     pygame.display.flip()
 
 pygame.quit()
-
 
 
