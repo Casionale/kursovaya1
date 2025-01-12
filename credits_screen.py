@@ -52,6 +52,7 @@ class CreditsScreen:
         self.speed = 1  # Скорость движения текста вверх
         self.freeze_fps = 0
 
+
     def draw(self):
         self.screen.fill(BLACK)
 
@@ -71,11 +72,13 @@ class CreditsScreen:
 
         if self.y_positions[-1] < 0:
             settings.CURRENT_SCREEN = "menu"
+            settings.CREDITS_SOUND.fadeout(1)
             settings.MENU_SOUND.play()
 
     def handle_event(self, event):
         if event.type == pygame.KEYDOWN:
             if event.key == pygame.K_RETURN:
                 settings.CURRENT_SCREEN = "menu"
+                settings.CREDITS_SOUND.fadeout(1)
                 settings.MENU_SOUND.play()
 

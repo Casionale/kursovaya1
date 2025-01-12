@@ -10,7 +10,7 @@ from settings import *
 class Game:
     screen = None
     current_level = None
-    max_level = 5
+    max_level = 1
     running = False
     game_timer = 0
     game_map = None

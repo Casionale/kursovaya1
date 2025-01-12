@@ -41,7 +41,7 @@ while running:
             if player_name is not None:
                 s = DB.Database()
                 s.add_record(player_name, settings.GAME_TIME)
-                settings.CURRENT_SCREEN == "records"
+                settings.CURRENT_SCREEN = "records"
             pass
 
         if settings.CURRENT_SCREEN == "records":

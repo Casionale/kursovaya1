@@ -84,6 +84,7 @@ class Menu:
         print("Открыть титры")  # Здесь будет отображение титров
         settings.CURRENT_SCREEN = "credit"
         MENU_SOUND.fadeout(2)
+        settings.CREDITS_SOUND.play()
 
     def exit_game(self):
         pygame.quit()
