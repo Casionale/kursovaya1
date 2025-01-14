@@ -60,7 +60,7 @@ class GameMap:
 
     def generate_objects(self, num_objects, difficulty):
         for _ in range(num_objects):
-            size = random.randint(5 + 5 * difficulty, 30 + 5 * difficulty) + self.difficulty
+            size = random.randint(5 + 3 * difficulty, 30 + 2 * difficulty) + self.difficulty
             x = random.randint(0, MAP_WIDTH)
             y = random.randint(0, MAP_HEIGHT)
             if random.random() < 0.2 * self.difficulty:  # Вероятность появления движущихся объектов
