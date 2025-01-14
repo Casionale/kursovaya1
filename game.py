@@ -25,9 +25,16 @@ class Game:
         self.ui = GameUI()
         # Инициализация тайловой карты
         self.tilemap = TileMap(100, 100, 50)
+        w, h = pygame.display.get_surface().get_size()
+        self.defeat = pygame.transform.scale(pygame.image.load(settings.resource_path("imgs/defeat.png")),
+                                             (w, h))
+
+        self.victory = pygame.transform.scale(pygame.image.load(settings.resource_path("imgs/victory.png")),
+                                             (w, h))
 
 
-    def to_game(self):
+    def to_game(self, max_level = 5):
+        self.max_level = max_level
 
         GAME_SOUND.play(loops=10)
         # Игровой цикл
@@ -75,22 +82,24 @@ class Game:
                 if self.current_level == self.max_level:
                     GAME_SOUND.fadeout(1)
                     VICTORY_SOUND.play()
-                    self.show_transition_screen(f"Финальный уровень пройден!")
-                    self.show_transition_screen("Вы прошли игру!", f"Ваше время {round(self.game_timer, 2)} сек")
+                    self.show_transition_screen(f"Финальный уровень пройден!", bg='victory')
+                    self.show_transition_screen("Вы прошли игру!",
+                                                f"Ваше время {round(self.game_timer, 2)} сек", bg='victory')
                     MENU_SOUND.play(loops=10)
                     settings.CURRENT_SCREEN = "input"
                     settings.GAME_TIME = round(self.game_timer, 2)
+                    settings.GAME_DIFF = self.max_level
                     self.running = False
                     return
 
-                self.show_transition_screen(f"Уровень {self.current_level} пройден!")
+                self.show_transition_screen(f"Уровень {self.current_level} пройден!", bg='victory')
                 self.load_next_level()
 
             # Условие поражения
             if self.player.radius <= 5:
                 GAME_SOUND.fadeout(1)
                 GAME_OVER_SOUND.play()
-                self.show_transition_screen("Вы проиграли!")
+                self.show_transition_screen("Вы проиграли!", bg='defeat')
                 MENU_SOUND.play(loops=10)
                 settings.CURRENT_SCREEN = "menu"
                 self.running = False
@@ -105,16 +114,25 @@ class Game:
             pygame.display.flip()
             self.clock.tick(FPS)
 
-    def show_transition_screen(self, message, submessage=''):
-        self.screen.fill((0, 0, 0))
+    def show_transition_screen(self, message, submessage='', bg='default'):
+        if bg == 'default':
+            self.screen.fill((0, 0, 0))
+            COLOR = (255, 255, 255)
+        if bg == 'victory':
+            self.screen.blit(self.victory, self.victory.get_rect())
+            COLOR = (0, 0, 0)
+        if bg == 'defeat':
+            self.screen.blit(self.defeat, self.defeat.get_rect())
+            COLOR = (255, 255, 255)
+
         font = pygame.font.Font(None, 74)
-        text = font.render(message, True, (255, 255, 255))
+        text = font.render(message, True, COLOR)
         text_rect = text.get_rect(center=(WINDOW_WIDTH // 2, WINDOW_HEIGHT // 2))
         self.screen.blit(text, text_rect)
 
         if submessage != '':
             font = pygame.font.Font(None, 34)
-            subtext = font.render(submessage, True, (255, 255, 255))
+            subtext = font.render(submessage, True, COLOR)
             subtext_rect = subtext.get_rect(center=(WINDOW_WIDTH // 2, (WINDOW_HEIGHT // 2) + 100))
             self.screen.blit(subtext, subtext_rect)
 
@@ -129,3 +147,4 @@ class Game:
         self.camera = Camera(self.player)
         self.camera.update()
         LEVEL_UP_SOUND.play()
+

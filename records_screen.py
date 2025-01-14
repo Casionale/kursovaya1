@@ -40,7 +40,7 @@ class RecordsScreen:
         # Рекорды
         records = self.db.get_top_records()
 
-        for i in range(20):
+        for i in range(21):
             if i < len(records):
                 name = self.records_font.render(f"{i+1} {' '*5} {records[i]['name']}", True, TITLE)
                 name_rect = name.get_rect(topleft=(self.screen.get_width() // 3, 200 + (20*i)))
@@ -50,6 +50,11 @@ class RecordsScreen:
                 time_rect = time.get_rect(topleft=(self.screen.get_width() -
                                                    self.screen.get_width() // 3, 200 + (20 * i)))
                 self.screen.blit(time, time_rect)
+
+                diff = self.records_font.render(f"{records[i]['diff']}", True, TITLE)
+                diff_rect = diff.get_rect(topleft=(self.screen.get_width() -
+                                                   self.screen.get_width() // 4, 200 + (20 * i)))
+                self.screen.blit(diff, diff_rect)
             else:
                 name = self.records_font.render(f"{i + 1}", True, TITLE)
                 name_rect = name.get_rect(topleft=(self.screen.get_width() // 3, 200 + (20 * i)))

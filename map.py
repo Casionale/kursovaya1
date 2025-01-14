@@ -12,8 +12,8 @@ class GameMap:
         self.objects = []
         self.obstacles = []
         self.difficulty = difficulty
-        self.generate_objects(num_objects)
-        self.obstacles = self.generate_obstacles(random.randint(30, 100))
+        self.generate_objects(num_objects, self.difficulty)
+        self.obstacles = self.generate_obstacles(random.randint(30 + 5 * difficulty, 100))
         self.bonuses = self.generate_bonuses(2)
         pass
 
@@ -58,9 +58,9 @@ class GameMap:
         for bonus in self.bonuses:
             bonus.draw(screen, camera)
 
-    def generate_objects(self, num_objects):
+    def generate_objects(self, num_objects, difficulty):
         for _ in range(num_objects):
-            size = random.randint(5, 30) + self.difficulty
+            size = random.randint(5 + 5 * difficulty, 30 + 5 * difficulty) + self.difficulty
             x = random.randint(0, MAP_WIDTH)
             y = random.randint(0, MAP_HEIGHT)
             if random.random() < 0.2 * self.difficulty:  # Вероятность появления движущихся объектов

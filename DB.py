@@ -11,6 +11,7 @@ class Record(Base):
     id = Column(Integer, primary_key=True, autoincrement=True)
     name = Column(String, nullable=False)
     time = Column(Float, nullable=False)
+    diff = Column(Integer, nullable=False)
 
 # Настройка подключения к базе данных
 DATABASE_URL = "sqlite:///records.db"
@@ -23,18 +24,32 @@ class Database:
     def __init__(self):
         self.session = Session()
 
-    def add_record(self, name: str, time: float):
+    def add_record(self, name: str, time: float, diff: int):
         """Добавляет новую запись в таблицу."""
-        new_record = Record(name=name, time=time)
+        new_record = Record(name=name, time=time, diff=diff)
         self.session.add(new_record)
         self.session.commit()
 
-    def get_top_records(self, limit: int = 10):
+    def get_top_records(self, limit: int = 20):
         """Возвращает лучшие результаты в виде списка словарей."""
         records = (
             self.session.query(Record)
-            .order_by(Record.time.asc())  # Сортировка по времени
+            .order_by(Record.diff.asc(), Record.time.asc())  # Сортировка по времени
             .limit(limit)
             .all()
         )
-        return [{"id": record.id, "name": record.name, "time": record.time} for record in records]
+
+        grouped_records = {}
+        for record in records:
+            if record.diff not in grouped_records:
+                grouped_records[record.diff] = []
+            if len(grouped_records[record.diff]) < 7: # По 7 записей для каждой сложности. 3 сложности = 21 запись
+                grouped_records[record.diff].append(record)
+
+        # Преобразуем результат в плоский список словарей
+        result = [
+            {"id": record.id, "name": record.name, "time": record.time, "diff": record.diff}
+            for records in grouped_records.values()
+            for record in records
+        ]
+        return result

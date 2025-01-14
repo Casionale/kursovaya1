@@ -6,6 +6,7 @@ import pygame
 import DB
 import settings
 from credits_screen import CreditsScreen
+from difficulty import Difficulty
 from game import Game
 from input_screen import InputScreen
 
@@ -23,6 +24,7 @@ game = Game(screen)
 input_screen = InputScreen(screen)
 records_screen = RecordsScreen(screen)
 credits_screen = CreditsScreen(screen)
+difficulty_screen = Difficulty(screen)
 
 running = True
 print('Cur screen set MENU')
@@ -36,11 +38,14 @@ while running:
         if settings.CURRENT_SCREEN == "menu":
             menu.handle_event(event)
 
+        if settings.CURRENT_SCREEN == "difficulty":
+            difficulty_screen.handle_event(event)
+
         if settings.CURRENT_SCREEN == "input":
             player_name = input_screen.handle_event(event)
             if player_name is not None:
                 s = DB.Database()
-                s.add_record(player_name, settings.GAME_TIME)
+                s.add_record(player_name, settings.GAME_TIME, settings.GAME_DIFF)
                 settings.CURRENT_SCREEN = "records"
             pass
 
@@ -56,6 +61,8 @@ while running:
         game.to_game()
     if settings.CURRENT_SCREEN == "input":
         input_screen.draw()
+    if settings.CURRENT_SCREEN == "difficulty":
+        difficulty_screen.draw()
     if settings.CURRENT_SCREEN == "records":
         records_screen.draw()
     if settings.CURRENT_SCREEN == "credit":

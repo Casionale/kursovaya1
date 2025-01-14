@@ -3,6 +3,8 @@ import random
 
 import pygame
 from math import sqrt
+
+import settings
 from settings import *
 
 
@@ -13,6 +15,8 @@ class GameObject:
         self.size = size
         self.color = (random.randint(100, 255), random.randint(100, 255), random.randint(100, 255))
         self.pulse = 0  # Для анимации пульсации
+        self.sprite = settings.ENEMY_SPRITES[random.randint(0, len(settings.ENEMY_SPRITES)-1)]
+        pass
 
     def draw(self, screen, camera):
         # Координаты объекта с учетом камеры
@@ -25,7 +29,10 @@ class GameObject:
 
         # Проверяем, находится ли объект в пределах видимого окна
         if -self.size < screen_x < WINDOW_WIDTH + self.size and -self.size < screen_y < WINDOW_HEIGHT + self.size:
-            pygame.draw.circle(screen, OBJECT_COLOR, (screen_x, screen_y), self.size)
+            # Cпрайт  в соответствии с его радиусом
+            scaled_sprite = pygame.transform.scale(self.sprite, (self.size * 2, self.size * 2))
+            sprite_rect = scaled_sprite.get_rect(center=(screen_x, screen_y))
+            screen.blit(scaled_sprite, sprite_rect)
 
     def collides_with(self, player):
         # Проверка коллизии с игроком

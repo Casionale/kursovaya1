@@ -54,4 +54,8 @@ class Player:
     def draw(self, screen, camera):
         screen_x = self.x - camera.x_offset
         screen_y = self.y - camera.y_offset
-        pygame.draw.circle(screen, PLAYER_COLOR, (screen_x, screen_y), self.radius)
+        # Cпрайт  в соответствии с его радиусом
+        scaled_sprite = pygame.transform.scale(settings.SPRITE_PLAYER, (self.radius * 2, self.radius * 2))
+        sprite_rect = scaled_sprite.get_rect(center=(screen_x, screen_y))
+        screen.blit(scaled_sprite, sprite_rect)
+
