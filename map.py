@@ -8,7 +8,15 @@ from objects import GameObject, Obstacle, MovingObject, Bonus, Trap
 
 
 class GameMap:
+    """
+    Класс GameMap генерирует карту и объекты для создания нового уровня
+    """
     def __init__(self, num_objects, difficulty=1):
+        """
+        Конструктор
+        :param num_objects: Количество врагов на уровне
+        :param difficulty: Сложность (количество уровней в игре)
+        """
         self.objects = []
         self.obstacles = []
         self.difficulty = difficulty
@@ -18,6 +26,12 @@ class GameMap:
         pass
 
     def update(self, player):
+        """
+        Проверяет коллизии объектов и игрока. Увеличивает или уменьшает размер игрока, применяет бонусы и удаляет
+        объекты
+        :param player: объект игрока
+        :return:
+        """
         for obj in self.objects[:]:
             if obj.collides_with(player):
                 if player.radius > obj.size:  # Игрок поглощает объект
@@ -51,6 +65,12 @@ class GameMap:
                 self.bonuses.remove(bonus)
 
     def draw(self, screen, camera):
+        """
+        Вызывает метод отрисовки объекта, но только если он находится в области камеры
+        :param screen: Объект pygame.display
+        :param camera: Объект класса Camera - камера игры
+        :return:
+        """
         for obj in self.objects:
             obj.draw(screen, camera)
         for obstacle in self.obstacles:
@@ -59,6 +79,12 @@ class GameMap:
             bonus.draw(screen, camera)
 
     def generate_objects(self, num_objects, difficulty):
+        """
+        Собственно генерация врагов. С некоторым шансом создаёт движущихся врагов
+        :param num_objects: Количество врагов
+        :param difficulty: Сложность уровня
+        :return:Список врагов
+        """
         for _ in range(num_objects):
             size = random.randint(5 + 3 * difficulty, 30 + 2 * difficulty) + self.difficulty
             x = random.randint(0, MAP_WIDTH)
@@ -71,6 +97,11 @@ class GameMap:
                 self.objects.append(GameObject(x, y, size))
 
     def generate_obstacles(self, count):
+        """
+        Метод генерации препятствий на уровне
+        :param count: Количество препятствий
+        :return:Список препятствий
+        """
         obstacles = []
         for _ in range(count):
             x = random.randint(0, MAP_WIDTH)
@@ -81,6 +112,11 @@ class GameMap:
         return obstacles
 
     def generate_bonuses(self, count):
+        """
+        Метод генерации бонусов
+        :param count: Количество бонусов
+        :return:Список бонусов
+        """
         bonuses = []
         for _ in range(count):
             x = random.randint(0, MAP_WIDTH)

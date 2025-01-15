@@ -7,7 +7,15 @@ from tilemap import TileMap
 from ui import GameUI
 from settings import *
 
+
 class Game:
+    """
+    Класс самого игрового процесса
+
+    Attributes
+    screen : pygame.screen
+        Объект экрана
+    """
     screen = None
     current_level = None
     max_level = 5
@@ -16,6 +24,10 @@ class Game:
     game_map = None
 
     def __init__(self, screen):
+        """
+        Конструктор
+        :param screen: объект экрана
+        """
         # Инициализация объектов
         self.screen = screen
         self.current_level = 1
@@ -30,10 +42,14 @@ class Game:
                                              (w, h))
 
         self.victory = pygame.transform.scale(pygame.image.load(settings.resource_path("imgs/victory.png")),
-                                             (w, h))
+                                              (w, h))
 
-
-    def to_game(self, max_level = 5):
+    def to_game(self, max_level=5):
+        """
+        Класс запуска игрового цикла, запускает таймер, следит за состоянием игрового процесса
+        :param max_level: Количество уровней игры, по-умолчанию 5
+        :return:
+        """
         self.max_level = max_level
 
         GAME_SOUND.play(loops=10)
@@ -115,6 +131,16 @@ class Game:
             self.clock.tick(FPS)
 
     def show_transition_screen(self, message, submessage='', bg='default'):
+        """
+        Метод создаёт экран сообщения между игровыми 'сценами'
+        :param message: Сообщение окна
+        :param submessage: Подсообщение окна меньшего размера
+        :param bg: Выбор фонового изображения:
+            default: чёрный экран
+            victory: изображение победы
+            defeat: изображение проигрыша
+        :return:
+        """
         if bg == 'default':
             self.screen.fill((0, 0, 0))
             COLOR = (255, 255, 255)
@@ -140,6 +166,10 @@ class Game:
         pygame.time.delay(2000)  # Задержка в 2 секунды перед переходом
 
     def load_next_level(self):
+        """
+        Метод для перехода на следующий уровень, увеличивает текущий уровень на 1
+        :return:
+        """
         self.current_level += 1
         print(f"Переход на уровень {self.current_level}")
         self.game_map = GameMap(num_objects=20 + self.current_level * 5, difficulty=self.current_level)
@@ -147,4 +177,3 @@ class Game:
         self.camera = Camera(self.player)
         self.camera.update()
         LEVEL_UP_SOUND.play()
-

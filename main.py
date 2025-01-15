@@ -30,6 +30,7 @@ running = True
 print('Cur screen set MENU')
 settings.CURRENT_SCREEN = "menu"
 
+# Главный цикл игры
 while running:
     for event in pygame.event.get():
         if event.type == pygame.QUIT:

@@ -5,8 +5,19 @@ import settings
 WHITE = (255, 255, 255)
 BLACK = (0, 0, 0)
 
+
 class CreditsScreen:
+    """
+    Класс окна титров. Выводит на экран титры игры и выходит в меню.
+    Attributes
+    screen : pygame.screen
+        Объект экрана
+    """
     def __init__(self, screen):
+        """
+        Конструктор
+        :param screen: объект экрана
+        """
         self.screen = screen
         self.font = pygame.font.Font(None, 40)
         self.credits = [
@@ -66,8 +77,11 @@ class CreditsScreen:
         self.speed = 1  # Скорость движения текста вверх
         self.freeze_fps = 0
 
-
     def draw(self):
+        """
+        Отрисовывает титры в правильном месте
+        :return:
+        """
         self.screen.fill(BLACK)
 
         # Рисуем строки с учетом их текущей позиции
@@ -77,9 +91,14 @@ class CreditsScreen:
             self.screen.blit(rendered_text, text_rect)
 
     def update(self):
+        """
+        Метод поднимает титры с заданной скоростью (пиксель в несколько кадров),
+        следит чтобы при завершении титров открылось меню
+        :return:
+        """
         self.freeze_fps += 1
 
-        if self.freeze_fps % 10 == 0:
+        if self.freeze_fps % 5 == 0:
 
             for i in range(len(self.y_positions)):
                 self.y_positions[i] -= self.speed
@@ -91,10 +110,14 @@ class CreditsScreen:
             settings.MENU_SOUND.play()
 
     def handle_event(self, event):
+        """
+        Слушает события управления и выходит в меню по нажатию на Enter
+        :param event: Объект событий
+        :return:
+        """
         if event.type == pygame.KEYDOWN:
             if event.key == pygame.K_RETURN:
                 settings.CURRENT_SCREEN = "menu"
                 self.y_positions = [self.screen.get_height() + i * 50 for i in range(len(self.credits))]
                 settings.CREDITS_SOUND.fadeout(1)
                 settings.MENU_SOUND.play()
-

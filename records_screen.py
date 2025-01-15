@@ -9,8 +9,17 @@ BLACK = (0, 0, 0)
 GRAY = (200, 200, 200)
 TITLE = (179, 36, 36)
 
+
 class RecordsScreen:
+    """
+    Класс экрана рекордов
+    """
+
     def __init__(self, screen):
+        """
+        Конструктор класса, создаёт экран рекордов
+        :param screen: Объект дисплея Pygame
+        """
         self.screen = screen
         self.font = pygame.font.Font(None, 50)
         self.records_font = pygame.font.Font(None, 30)
@@ -19,8 +28,11 @@ class RecordsScreen:
         self.records = self.db.get_top_records()
         self.bg = pygame.image.load(settings.resource_path("imgs/bg.webp"))
 
-
     def draw(self):
+        """
+        Отрисовка экрана таблицы рекордов. Выводит 21 рекорд, полученный от объекта  базы данных
+        :return:
+        """
         bg = self.bg.convert_alpha()
         transparency = 32
         bg.fill((0, 0, 0, transparency), special_flags=pygame.BLEND_RGBA_MULT)
@@ -42,8 +54,8 @@ class RecordsScreen:
 
         for i in range(21):
             if i < len(records):
-                name = self.records_font.render(f"{i+1} {' '*5} {records[i]['name']}", True, TITLE)
-                name_rect = name.get_rect(topleft=(self.screen.get_width() // 3, 200 + (20*i)))
+                name = self.records_font.render(f"{i + 1} {' ' * 5} {records[i]['name']}", True, TITLE)
+                name_rect = name.get_rect(topleft=(self.screen.get_width() // 3, 200 + (20 * i)))
                 self.screen.blit(name, name_rect)
 
                 time = self.records_font.render(f"{records[i]['time']}", True, TITLE)
@@ -62,9 +74,13 @@ class RecordsScreen:
         pass
 
     def handle_event(self, event):
+        """
+        Слушает события управления и выходит в меню по нажатию на Enter
+        :param event: Объект событий
+        :return:
+        """
         if event.type == pygame.KEYDOWN:
             if event.key == pygame.K_RETURN:
                 # Когда нажали Enter, возвращаемся
                 settings.CURRENT_SCREEN = "menu"
                 return
-

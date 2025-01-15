@@ -4,13 +4,26 @@ import pygame
 
 
 class TileMap:
+    """
+    Класс, создающий карту из тайлов.
+    """
     def __init__(self, rows, cols, tile_size):
+        """
+        Конструктор. Генерирует карту тайлов.
+        :param rows: Количество строк
+        :param cols: Количество столбцов
+        :param tile_size: Размер тайла (Квадрат)
+        """
         self.rows = rows
         self.cols = cols
         self.tile_size = tile_size
         self.tiles = self.generate_tiles()
 
     def generate_tiles(self):
+        """
+        Генерация тайлов с помощью рандома.
+        :return: Список тайлов
+        """
         tiles = []
         for row in range(self.rows):
             for col in range(self.cols):
@@ -21,6 +34,12 @@ class TileMap:
         return tiles
 
     def draw(self, screen, camera):
+        """
+        Отрисовка тайловой карты в зависимости от  камеры
+        :param screen: Объект дисплея pygame
+        :param camera: Объект камеры игры
+        :return:
+        """
         screen_width, screen_height = screen.get_size()
 
         # Отображаем только видимые тайлы

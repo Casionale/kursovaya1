@@ -8,7 +8,14 @@ BLACK = (0, 0, 0)
 GRAY = (200, 200, 200)
 
 class InputScreen:
+    """
+    Класс для экрана ввода имени игрока для последующего сохранения
+    """
     def __init__(self, screen):
+        """
+        Конструктор
+        :param screen: объект экрана
+        """
         self.screen = screen
         self.font = pygame.font.Font(None, 50)
         self.input_box = pygame.Rect((self.screen.get_width() // 2 - 150, 250), (300, 50))
@@ -16,6 +23,10 @@ class InputScreen:
         self.active = True
 
     def draw(self):
+        """
+        Отрисовывает экран ввода имени, состоящий из поля ввода и подсказки.
+        :return:
+        """
         self.screen.fill(BLACK)
 
         # Рисуем заголовок
@@ -35,6 +46,13 @@ class InputScreen:
         self.screen.blit(hint, hint_rect)
 
     def handle_event(self, event):
+        """
+        Слушает события управления и выходит в меню по нажатию на Enter,
+        удаления символа из поля ввода при нажатии на бекспейс,
+        и добавления символа в поле ввода для других клавиш
+        :param event:
+        :return:Имя игрока
+        """
         if event.type == pygame.KEYDOWN and self.active:
             if event.key == pygame.K_RETURN:
                 # Когда нажали Enter, возвращаем текст

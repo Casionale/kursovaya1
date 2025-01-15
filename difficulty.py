@@ -16,8 +16,21 @@ BUTTON_WIDTH = 450
 BUTTON_HEIGHT = 60
 BUTTON_MARGIN = 40
 
+
 class Difficulty:
+    """
+    Экран выбора сложности игры.
+
+    Attributes
+    screen : pygame.screen
+        Объект экрана
+    """
+
     def __init__(self, screen):
+        """
+        Конструктор
+        :param screen: объект экрана
+        """
         self.screen = screen
         self.font = pygame.font.Font(None, 50)
         self.buttons = [
@@ -28,6 +41,10 @@ class Difficulty:
         self.bg = pygame.image.load(settings.resource_path("imgs/bg.webp"))
 
     def draw(self):
+        """
+        Отрисовывает экран выбора сложности, состоящий из 3 кнопок выбора сложности.
+        :return:
+        """
         self.screen.fill(BLACK)
         self.screen.blit(self.bg, self.screen.get_rect())
         # Рисуем заголовок
@@ -56,6 +73,11 @@ class Difficulty:
             self.screen.blit(label, label_rect)
 
     def handle_event(self, event):
+        """
+        Слушает события управления и выходит в меню по нажатию на Enter
+        :param event: Объект событий
+        :return:
+        """
         if event.type == pygame.MOUSEBUTTONDOWN and event.button == 1:
             for i, button in enumerate(self.buttons):
                 x = (self.screen.get_width() - BUTTON_WIDTH) // 2
@@ -65,6 +87,11 @@ class Difficulty:
                     button["action"]()
 
     def start(self, difficulty):
+        """
+        Метод запуска игры
+        :param difficulty:Сложность игры
+        :return:
+        """
         settings.CURRENT_SCREEN = "game"
         game = Game(self.screen)
         MENU_SOUND.fadeout(2)
@@ -72,14 +99,25 @@ class Difficulty:
         MENU_SOUND.fadeout(2)
 
     def start_easy(self):
+        """
+        Метод запуска лёгкой игры из 2 уровней
+        :return:
+        """
         print("Начинаем лёгкую игру!")
         self.start(2)
 
     def start_medium(self):
+        """
+        Метод запуска средней сложности игры из 5 уровней
+        :return:
+        """
         print("Начинаем стандартную игру!")
         self.start(5)
 
     def start_hard(self):
+        """
+        Метод запуска сложной игры из 7 уровней
+        :return:
+        """
         print("Начинаем сложную игру!")
         self.start(7)
-

@@ -19,7 +19,14 @@ BUTTON_MARGIN = 20
 
 
 class Menu:
+    """
+    Класс экрана меню. Отображает кнопки выбора сложности игры, таблицы рекордов, титров, выхода из игры.
+    """
     def __init__(self, screen):
+        """
+        Конструктор, создаёт кнопки и их обработчики
+        :param screen: Объект дисплея
+        """
         self.screen = screen
         self.font = pygame.font.Font(None, 50)
         self.buttons = [
@@ -32,6 +39,10 @@ class Menu:
         MENU_SOUND.play(loops=10)
 
     def draw(self):
+        """
+        Метод отрисовки экрана меню. Рисует кнопки и текст меню.
+        :return:
+        """
         self.screen.fill(BLACK)
         self.screen.blit(self.bg, self.screen.get_rect())
         # Рисуем заголовок
@@ -61,6 +72,11 @@ class Menu:
             self.screen.blit(label, label_rect)
 
     def handle_event(self, event):
+        """
+        Слушатель событий управления. При клике в область кнопки вызывает её обработчик
+        :param event: Объект событий
+        :return:
+        """
         if event.type == pygame.MOUSEBUTTONDOWN and event.button == 1:
             for i, button in enumerate(self.buttons):
                 x = (self.screen.get_width() - BUTTON_WIDTH) // 2
@@ -70,19 +86,35 @@ class Menu:
                     button["action"]()
 
     def play_game(self):
+        """
+        Метод выбора экрана сложности
+        :return:
+        """
         print("В сложность")
         settings.CURRENT_SCREEN = "difficulty"
 
     def show_highscores(self):
+        """
+        Метод выбора экрана таблицы рекордов
+        :return:
+        """
         print("Открыть таблицу рекордов")  # Здесь будет логика отображения рекордов
         settings.CURRENT_SCREEN = "records"
 
     def show_credits(self):
+        """
+        Метод выбора экрана титров
+        :return:
+        """
         print("Открыть титры")  # Здесь будет отображение титров
         settings.CURRENT_SCREEN = "credit"
         MENU_SOUND.fadeout(2)
         settings.CREDITS_SOUND.play()
 
     def exit_game(self):
+        """
+        Метод завершения игры
+        :return:
+        """
         pygame.quit()
         sys.exit()
