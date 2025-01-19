@@ -83,7 +83,7 @@ class Obstacle:
         # Отрисовка с учётом камеры
         screen_x = self.x - camera.x_offset
         screen_y = self.y - camera.y_offset
-        pygame.draw.rect(screen, (139, 69, 19), (screen_x, screen_y, self.width, self.height))
+        pygame.draw.rect(screen, (48, 24, 7), (screen_x, screen_y, self.width, self.height))
 
     def collides_with(self, player):
         """
