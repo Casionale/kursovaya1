@@ -1,15 +1,10 @@
-import os
-import sys
-
 import pygame
-
 import DB
 import settings
 from credits_screen import CreditsScreen
 from difficulty import Difficulty
 from game import Game
 from input_screen import InputScreen
-
 from menu import Menu
 from records_screen import RecordsScreen
 

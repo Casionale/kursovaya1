@@ -1,5 +1,3 @@
-import pygame
-
 import settings
 from settings import *
 
@@ -49,6 +47,7 @@ class Player:
             settings.GAME_SOUND.fadeout(1)
             settings.MENU_SOUND.play()
 
+
     def grow(self, amount):
         """
         Метод увеличения радиуса игрока
@@ -66,7 +65,6 @@ class Player:
         self.radius -= amount
         if self.radius < self.min_size:
             self.radius = self.min_size
-
 
     def draw(self, screen, camera):
         """

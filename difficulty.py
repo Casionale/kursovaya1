@@ -1,6 +1,5 @@
 # Цвета
 import pygame
-
 import settings
 from game import Game
 from settings import MENU_SOUND

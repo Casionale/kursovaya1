@@ -129,6 +129,7 @@ class Game:
 
             pygame.display.flip()
             self.clock.tick(FPS)
+            #print(self.clock.get_fps())
 
     def show_transition_screen(self, message, submessage='', bg='default'):
         """

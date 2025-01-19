@@ -1,7 +1,5 @@
-# Размеры окна
 import os
 import sys
-
 import pygame
 
 #Загрузка файлов для возможности внести в exe

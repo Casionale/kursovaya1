@@ -1,6 +1,7 @@
 from sqlalchemy import create_engine, Column, Integer, String, Float
 from sqlalchemy.ext.declarative import declarative_base
 from sqlalchemy.orm import sessionmaker
+import unittest
 
 # Создаем базу данных
 Base = declarative_base()
@@ -68,3 +69,41 @@ class Database:
             for record in records
         ]
         return result
+
+
+class TestDatabaseOperations(unittest.TestCase):
+
+    def setUp(self):
+        """Инициализация сессии перед каждым тестом"""
+        self.session = Session()
+
+    def tearDown(self):
+        """Закрытие сессии после каждого теста"""
+        self.session.close()
+
+    def test_create_and_delete_record(self):
+        """Тест для проверки добавления и удаления записи"""
+
+        # Создание новой записи
+        new_record = Record(name="Player1", time=100.5, diff=2)
+        self.session.add(new_record)
+        self.session.commit()
+
+        # Проверка, что запись добавлена
+        saved_record = self.session.query(Record).filter_by(name="Player1").first()
+        self.assertIsNotNone(saved_record)
+        self.assertEqual(saved_record.name, "Player1")
+        self.assertEqual(saved_record.time, 100.5)
+        self.assertEqual(saved_record.diff, 2)
+
+        # Удаление записи
+        self.session.delete(saved_record)
+        self.session.commit()
+
+        # Проверка, что запись удалена
+        deleted_record = self.session.query(Record).filter_by(name="Player1").first()
+        self.assertIsNone(deleted_record)
+
+
+if __name__ == "__main__":
+    unittest.main()

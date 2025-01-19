@@ -1,9 +1,6 @@
 import math
 import random
-
-import pygame
 from math import sqrt
-
 import settings
 from settings import *
 

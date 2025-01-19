@@ -1,10 +1,6 @@
 import random
-from datetime import datetime
-
 from settings import *
-
-import pygame
-from objects import GameObject, Obstacle, MovingObject, Bonus, Trap
+from objects import GameObject, Obstacle, MovingObject, Bonus
 
 
 class GameMap:
@@ -42,6 +38,7 @@ class GameMap:
                     player.shrink(1)  # Уменьшение радиуса
 
 
+
         # Проверяем столкновение с препятствиями
         for obstacle in self.obstacles:
             if obstacle.collides_with(player):
@@ -71,10 +68,10 @@ class GameMap:
         :param camera: Объект класса Camera - камера игры
         :return:
         """
-        for obj in self.objects:
-            obj.draw(screen, camera)
         for obstacle in self.obstacles:
             obstacle.draw(screen, camera)
+        for obj in self.objects:
+            obj.draw(screen, camera)
         for bonus in self.bonuses:
             bonus.draw(screen, camera)
 

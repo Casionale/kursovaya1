@@ -1,8 +1,6 @@
 import pygame
 import sys
-
 import settings
-from game import Game
 from settings import CURRENT_SCREEN, MENU_SOUND
 
 # Цвета
