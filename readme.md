@@ -16,7 +16,7 @@
 
 Клонируйте репозиторий и запустите игру:
    ```bash
-   git clone https://github.com/Casionale/Kursovaya1.git
+   git clone https://github.com/Casionale/kursovaya1.git
    pip install -r requirements.txt
    python main.py
    ```
