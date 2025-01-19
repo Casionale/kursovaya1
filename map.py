@@ -70,10 +70,11 @@ class GameMap:
         """
         for obstacle in self.obstacles:
             obstacle.draw(screen, camera)
-        for obj in self.objects:
-            obj.draw(screen, camera)
         for bonus in self.bonuses:
             bonus.draw(screen, camera)
+        for obj in self.objects:
+            obj.draw(screen, camera)
+
 
     def generate_objects(self, num_objects, difficulty):
         """
