@@ -98,7 +98,7 @@ class CreditsScreen:
         """
         self.freeze_fps += 1
 
-        if self.freeze_fps % 5 == 0:
+        if self.freeze_fps % 1 == 0: # Было замедление титров, сейчас нет
 
             for i in range(len(self.y_positions)):
                 self.y_positions[i] -= self.speed
